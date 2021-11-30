@@ -128,6 +128,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
+
 # Linux Stuff
 .idea/
 
@@ -157,4 +158,3 @@ files/
 eshop_project/__pycache__/
 .*.pyc
 *images
-
