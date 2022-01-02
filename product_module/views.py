@@ -1,4 +1,4 @@
-# /product_module/views.py
+# product_module/views.py
 from django.shortcuts import render, get_object_or_404
 from .models import Product
 from django.db.models import Avg
