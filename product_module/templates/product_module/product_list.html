@@ -1,4 +1,4 @@
-<!--product_moduls/template/product_moduls/product_list.html-->
+<!--/product_moduls/template/product_moduls/product_list.html-->
 
 {% extends 'base.html' %}
 
@@ -16,4 +16,11 @@
             </li> 
         {% endfor %}
     </ul>
+    <hr>
+    <p>
+    	number of products : {{ totale_number_of_products }}
+    </p>
+    <p>
+    	average rating of product ratings : {{ average_ratings }}
+    </p>
 {% endblock content %}

@@ -1,4 +1,4 @@
-# product_madule/urls.py
+# /product_madule/urls.py
 
 from django.urls import path
 from . import views
