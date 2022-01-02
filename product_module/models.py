@@ -1,15 +1,16 @@
+# product_module/models.py
+
 from django.db import models
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.urls import reverse
 from django.utils.text import slugify
 
-# Create your models here.
 
 class Product(models.Model):
     title = models.CharField(max_length=300)
     price = models.IntegerField()
     rating = models.IntegerField(
-        validators = [MinValueValidator(1), MaxValueValidator(5)],
+        validators=[MinValueValidator(1), MaxValueValidator(5)],
         default=0
     )
     short_description = models.CharField(max_length=360, null=True)
