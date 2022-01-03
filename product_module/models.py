@@ -10,7 +10,6 @@ class ProductCategory(models.Model):
     is_active = models.BooleanField(verbose_name='فعال/غیرفعال')
     is_delete=models.BooleanField(verbose_name='حذف شده / حذف نشده')
 
-
     def __str__(self):
         return self.title
 
@@ -20,7 +19,7 @@ class ProductCategory(models.Model):
 
 
 class Product(models.Model):
-    title=models.CharField(max_length=300, verbose_name='تیتر')
+    title=models.CharField(max_length=300, verbose_name='عنوان')
     category=models.ManyToManyField(
         to=ProductCategory,
         related_name='products',
@@ -34,7 +33,15 @@ class Product(models.Model):
         verbose_name='توضیحات کوتاه'
     )
     description=models.TextField(verbose_name='توضیحات اصلی', db_index=True)
-    slug=models.SlugField(max_length=200, default="", null=False, db_index=True, blank=True, unique=True)
+    slug=models.SlugField(
+        max_length=200,
+        default="",
+        null=False,
+        db_index=True,
+        blank=True,
+        unique=True,
+        verbose_name='عنوان در url'
+    )
     is_active=models.BooleanField(default=False, verbose_name='فعال/غیرفعال')
     is_delete=models.BooleanField(verbose_name='حذف شده / حذف نشده')
 
@@ -42,7 +49,7 @@ class Product(models.Model):
         return reverse('product-detail', args=[self.slug])
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        # self.slug = slugify(self.title)
         super().save(*args, **kwargs)
 
     def __str__(self):
@@ -53,7 +60,6 @@ class Product(models.Model):
         verbose_name_plural = 'محصولات'
 
 
-
 class ProductTag(models.Model):
     caption = models.CharField(max_length=100, db_index=True, verbose_name='برچسب')
     product = models.ForeignKey(
@@ -62,7 +68,6 @@ class ProductTag(models.Model):
         related_name='product_tags',
         verbose_name='برچسب‌های محصول'
     )
-
 
     def __str__(self):
         return self.caption
