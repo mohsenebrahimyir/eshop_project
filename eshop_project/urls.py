@@ -10,3 +10,5 @@ urlpatterns = [
 
 admin.site.site_header = 'مدیریت فروشگاه اینترنتی'
 admin.site.site_title = 'مدیریت فروشگاه اینترنتی'
+# admin.autodiscover()
+# admin.site.enable_nav_sidebar = False

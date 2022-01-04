@@ -1,5 +1,6 @@
 # product_module/models.py
 from django.db import models
+from django.db.models.fields.related import ForeignKey
 from django.urls import reverse
 from django.utils.text import slugify
 
@@ -18,12 +19,32 @@ class ProductCategory(models.Model):
         verbose_name_plural = 'دسته بندی‌ها'
 
 
+class ProductBrand(models.Model):
+    title = models.CharField(max_length=300, db_index=True, verbose_name='نام برند')
+    is_active = models.BooleanField(verbose_name='فعال/غیرفعال')
+    
+    class Meta:
+        verbose_name='برند'
+        verbose_name_plural = 'برندها'
+        
+    def __str__(self):
+        return self.title
+    
+
 class Product(models.Model):
     title=models.CharField(max_length=300, verbose_name='عنوان')
     category=models.ManyToManyField(
         to=ProductCategory,
         related_name='products',
         verbose_name='دسته بندی‌ها'
+    )
+    brand=ForeignKey(
+        to=ProductBrand,
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+        related_name='brand',
+        verbose_name='برند'
     )
     price=models.IntegerField(verbose_name='قیمت')
     short_description=models.CharField(
@@ -75,3 +96,4 @@ class ProductTag(models.Model):
     class Meta:
         verbose_name='برچسب محصول'
         verbose_name_plural = 'برچسب محصولات'
+
