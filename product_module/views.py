@@ -1,25 +1,20 @@
 # product_module/views.py
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import get_object_or_404
 from .models import Product
-from django.db.models import Avg
-from django.views.generic import TemplateView
+from django.views.generic.base import TemplateView
+from django.views.generic import ListView
 
 
-class ProductListView(TemplateView):
+class ProductListView(ListView):
     template_name = 'product_module/product_list.html'
+    model = Product
+    context_object_name = 'products'
     
-    def get_context_data(self, **kwargs):
-        products = Product.objects.all().order_by('-price')[:5]
-        context = super(ProductListView, self).get_context_data()
-        context['products'] = products
+    def get_queryset(self):
+        base_query = super(ProductListView, self).get_queryset()
+        data = base_query.filter(is_active=True)
         
-        return context
-
-# def product_list(request):
-#     products = Product.objects.all().order_by('-price')[:5]
-#     return render(request, 'product_module/product_list.html', {
-#         'products': products,
-#     })
+        return data
 
 
 class ProductDetailView(TemplateView):
@@ -30,9 +25,3 @@ class ProductDetailView(TemplateView):
         slug = kwargs['slug']
         product = get_object_or_404(Product, slug=slug)
         context['product'] = product
-
-# def product_detail(request, slug):
-#     product = get_object_or_404(Product, slug=slug)
-#     return render(request, 'product_module/product_detail.html', {
-#         'product': product
-#     })
