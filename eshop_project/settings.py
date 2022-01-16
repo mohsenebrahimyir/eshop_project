@@ -27,6 +27,7 @@ SECRET_KEY = 'l2u&=#wpzi(uazq^hzrhuo_6ggpojbocr%io%o-cl$iiyuon-+'
 DEBUG = True
 
 ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ["mohsenebrahimy.pythonanywhere.com"]
 
 
 # Application definition
@@ -123,9 +124,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'static'
-]
+STATICFILES_DIRS = [BASE_DIR / 'static']
+# STATIC_ROOT = '/home/mohsenebrahimy/eshop_project/static'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
