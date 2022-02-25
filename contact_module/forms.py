@@ -41,7 +41,3 @@ class ContactUsModelForm(forms.ModelForm):
                 'required': 'لطفا نام و نام خانوادگی خود را وارد کنید.',
             }
         }
-
-
-class ProfileForm(forms.Form):
-    user_image = forms.FileField()
