@@ -21,3 +21,10 @@ class ContactUs(models.Model):
 
 class UserProfile(models.Model):
     image = models.ImageField(upload_to='images')
+    
+    class Meta:
+        verbose_name = 'پروفایل'
+        verbose_name_plural = 'پروفایل‌ها'
+    
+    def __str__(self):
+        return self.image

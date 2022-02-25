@@ -1,17 +1,26 @@
 # product_module/models.py
 from django.db import models
-from django.db.models.fields.related import ForeignKey
 from django.urls import reverse
 from django.utils.text import slugify
 
 
 class ProductCategory(models.Model):
     title = models.CharField(
-        max_length=300, db_index=True, verbose_name='عنوان')
+        max_length=300,
+        db_index=True,
+        verbose_name='عنوان'
+    )
     url_title = models.CharField(
-        max_length=300, db_index=True, verbose_name='عنوان در url')
-    is_active = models.BooleanField(verbose_name='فعال/غیرفعال')
-    is_delete = models.BooleanField(verbose_name='حذف شده / حذف نشده')
+        max_length=300,
+        db_index=True,
+        verbose_name='عنوان در url'
+    )
+    is_active = models.BooleanField(
+        verbose_name='فعال/غیرفعال'
+    )
+    is_delete = models.BooleanField(
+        verbose_name='حذف شده / حذف نشده'
+    )
 
     def __str__(self):
         return self.title
@@ -23,8 +32,13 @@ class ProductCategory(models.Model):
 
 class ProductBrand(models.Model):
     title = models.CharField(
-        max_length=300, db_index=True, verbose_name='نام برند')
-    is_active = models.BooleanField(verbose_name='فعال/غیرفعال')
+        max_length=300,
+        db_index=True,
+        verbose_name='نام برند'
+    )
+    is_active = models.BooleanField(
+        verbose_name='فعال/غیرفعال'
+    )
 
     class Meta:
         verbose_name = 'برند'
@@ -35,13 +49,21 @@ class ProductBrand(models.Model):
 
 
 class Product(models.Model):
-    title = models.CharField(max_length=300, verbose_name='عنوان')
+    title = models.CharField(
+        max_length=300,
+        verbose_name='عنوان'
+    )
     category = models.ManyToManyField(
         to=ProductCategory,
         related_name='products',
         verbose_name='دسته بندی‌ها'
     )
-    brand = ForeignKey(
+    image = models.ImageField(
+        upload_to='images/products',
+        null=True, blank=True,
+        verbose_name='تصویر محصول'
+    )
+    brand = models.ForeignKey(
         to=ProductBrand,
         on_delete=models.CASCADE,
         null=True,
@@ -56,7 +78,10 @@ class Product(models.Model):
         null=True,
         verbose_name='توضیحات کوتاه'
     )
-    description = models.TextField(verbose_name='توضیحات اصلی', db_index=True)
+    description = models.TextField(
+        verbose_name='توضیحات اصلی',
+        db_index=True
+    )
     slug = models.SlugField(
         max_length=200,
         default="",
@@ -66,8 +91,13 @@ class Product(models.Model):
         unique=True,
         verbose_name='عنوان در url'
     )
-    is_active = models.BooleanField(default=False, verbose_name='فعال/غیرفعال')
-    is_delete = models.BooleanField(verbose_name='حذف شده / حذف نشده')
+    is_active = models.BooleanField(
+        default=False,
+        verbose_name='فعال/غیرفعال'
+    )
+    is_delete = models.BooleanField(
+        verbose_name='حذف شده / حذف نشده'
+    )
 
     def get_absolute_url(self):
         return reverse('product-detail', args=[self.slug])
@@ -86,7 +116,10 @@ class Product(models.Model):
 
 class ProductTag(models.Model):
     caption = models.CharField(
-        max_length=100, db_index=True, verbose_name='برچسب')
+        max_length=100,
+        db_index=True,
+        verbose_name='برچسب'
+    )
     product = models.ForeignKey(
         to=Product,
         on_delete=models.CASCADE,
@@ -94,9 +127,9 @@ class ProductTag(models.Model):
         verbose_name='برچسب‌های محصول'
     )
 
-    def __str__(self):
-        return self.caption
-
     class Meta:
         verbose_name = 'برچسب محصول'
         verbose_name_plural = 'برچسب محصولات'
+
+    def __str__(self):
+        return self.caption

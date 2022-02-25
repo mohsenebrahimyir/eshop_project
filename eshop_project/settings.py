@@ -135,3 +135,5 @@ MEDIA_URL = '/medias/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Session Expire:    s  x m  x d  x w
+SESSION_COOKE_AGE = 60 * 60 * 24 * 7
