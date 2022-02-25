@@ -23,7 +23,7 @@ class ProductCategory(models.Model):
     )
 
     def __str__(self):
-        return self.title
+        return f"({self.title} - {self.url_title})"
 
     class Meta:
         verbose_name = 'دسته بندی'
