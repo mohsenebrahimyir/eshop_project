@@ -39,9 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # Internal apps
     'home_module',
+    'account_module',
     'contact_module',
     'product_module',
+
+    # External apps
     'django_render_partial',
 ]
 
@@ -85,6 +90,9 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# https://docs.djangoproject.com/en/3.2/topics/auth/customizing/
+AUTH_USER_MODEL = 'account_module.User'
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
