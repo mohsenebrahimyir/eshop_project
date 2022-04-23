@@ -1,6 +1,6 @@
 asgiref==3.4.1
 autopep8==1.6.0
-Django==3.2
+Django==3.2.13
 django-render-partial==0.4
 Pillow==9.0.1
 pycodestyle==2.8.0
